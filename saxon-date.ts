@@ -5,7 +5,6 @@
 import {
   getDayName,
   getJulianDay as getJulianDate,
-  // initToggleButton,
   getSaxonMonthName,
 } from "./shared_functions.ts";
 
@@ -61,26 +60,16 @@ function getGoldenNumber(year: number): number {
 }
 
 // --------------------------------------------------------
-// function showSaxonDate(saxonDate: string): void {
-//   let output = document.querySelector(".saxon-date") as HTMLParagraphElement;
-//   output.innerHTML = saxonDate;
-// }
-
-// --------------------------------------------------------
-function getFirstDay(monthStart: number, gregorianYear: number): number {
-  // finds day of week of 1st day of lunar month
-  let jd = getJulianDate(0, 1, gregorianYear) + monthStart;
-  let dowNumber = (jd + 1) % 7;
-  return dowNumber;
-}
-
-// --------------------------------------------------------
-function getSaxonDate(metonicDate: object, when: string): void {
+function getSaxonDate(metonicDate: object, now: string): void {
   // let gregorianToday = new Date("2022-12-24");
-  let gregorianToday = new Date(when);
+  let gregorianToday = new Date(now);
   let gregorianYear = gregorianToday.getFullYear();
   let goldenNumber = getGoldenNumber(gregorianYear);
   let dayNumber = getDayNumber(gregorianToday);
+
+  let gDate = gregorianToday.getDate();
+  let gMonth = gregorianToday.getMonth();
+  let gYear = gregorianToday.getFullYear();
 
   let i = 0;
   let monthStart = 0;
@@ -108,21 +97,16 @@ function getSaxonDate(metonicDate: object, when: string): void {
   let day = getDayName(gregorianToday.getDay());
   let saxonDay = dayNumber - monthStart + 1;
   let saxonMonth = getSaxonMonthName(saxonMonthNum);
-
   let runicYear = getRunicYear(saxonMonth, gregorianToday);
-
   let saxonDate = `${day} ${saxonDay} ${saxonMonth} ${runicYear}`;
 
-  // showSaxonDate(saxonDate);
-
-  // let firstDay = getFirstDay(monthStart, gregorianYear);
-
-  //showCalendar(monthLength, firstDay, runicYear, saxonMonth, saxonDay);
   let output: string;
+
   if (verbose) {
     output = `
   Verbose Output Follows:
   Gregorian Date: ${gregorianToday}
+  Julian Date: ${getJulianDate(gDate, gMonth, gYear)}
   Daylight Savings Time is ${isDST(gregorianToday)}
   Golden Number: ${goldenNumber}
   Today's Day Number: ${dayNumber}
@@ -132,7 +116,8 @@ function getSaxonDate(metonicDate: object, when: string): void {
   Saxon Day: ${saxonDay}
   Saxon Month: ${saxonMonth}
   Saxon Year: ${runicYear}
-  Saxon Date: ${saxonDate}`;
+  Saxon Date: ${saxonDate}
+  `;
   } else {
     output = `
     Saxon Date: ${saxonDate}
@@ -140,79 +125,6 @@ function getSaxonDate(metonicDate: object, when: string): void {
   }
 
   console.log(output);
-
-  // *** SOME LOG OUTS ***
-  // console.clear();
-  // console.log("%cOutput Follows:", "color: lightgreen");
-  // console.log(gregorianToday);
-  // console.log(`Daylight Savings Time is ${isDST(gregorianToday)}`);
-  // console.log(`Golden Number: ${goldenNumber}`);
-  // console.log("Today's Day Number", dayNumber);
-  // console.log("Month Start: ", monthStart);
-  // console.log("Length of Month: ", monthLength);
-  // console.log(`Today is a ${day}`);
-  // console.log(`Saxon Day: ${saxonDay}`);
-  // console.log(`Saxon Month: ${saxonMonth}`);
-  // console.log(`Saxon Year: ${runicYear}`);
-  // console.log(`Saxon Date: ${saxonDate}`);
-}
-
-// --------------------------------------------------------
-/*function showCalendar(
-  daysInMonth: number,
-  firstDay: number,
-  saxonYear: number,
-  saxonMonth: string,
-  saxonDay: number
-): void {
-  // tbody and h3
-  const calendarBody = document.getElementById("calendar-body")!;
-  const monthYear = document.getElementById("month-year")!;
-
-  // clear previous cells and set the calendar title
-  calendarBody.innerHTML = "";
-  monthYear.innerHTML = `${saxonMonth} ${saxonYear}`;
-
-  let date = 1;
-  for (let i = 0; i < 6; i++) {
-    const row = document.createElement("tr");
-    for (let j = 0; j < 7; j++) {
-      if (i === 0 && j < firstDay) {
-        const cell = document.createElement("td");
-        const cellText = document.createTextNode("");
-        cell.appendChild(cellText);
-        row.appendChild(cell);
-      } else if (date > daysInMonth) {
-        break;
-      } else {
-        const cell = document.createElement("td");
-        const cellText = document.createTextNode(date.toString());
-        if (date === saxonDay) {
-          cell.classList.add("highlight-cell");
-        }
-        cell.appendChild(cellText);
-        row.appendChild(cell);
-        date++;
-      }
-    }
-
-    calendarBody.appendChild(row);
-  }
-}
-*/
-// --------------------------------------------------------
-function getMetonicData(): void {
-  // fetch("js/data/metonicTables.json")
-  //   .then((response) => {
-  //     if (!response.ok) {
-  //       throw new Error(response.statusText);
-  //     }
-  //     return response.json();
-  //   })
-  //   .then((data) => {
-  //     let metonicData = data;
-  //     getSaxonDate(metonicData);
-  //   });
 }
 
 // --------------------------------------------------------

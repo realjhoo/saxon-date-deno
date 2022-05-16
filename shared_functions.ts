@@ -51,28 +51,3 @@ export function getJulianDay(
 
   return JD;
 }
-
-//---------------------------------------------------------
-// export function initToggleButton() {
-//   let button = document.querySelector("#toggle-button") as HTMLButtonElement;
-//   button.addEventListener("click", () => {
-//     toggleit();
-//   });
-// }
-
-// --------------------------------------------------------
-// function toggleit() {
-//   // toggles visibility of explainer in DOM - obviously
-//   const toggleButton = document.getElementById(
-//     "toggle-button"
-//   ) as HTMLButtonElement;
-//   const explainer = document.querySelector(".explainer") as HTMLDivElement;
-
-//   if (toggleButton.innerHTML === "Show More") {
-//     toggleButton.innerHTML = "Show Less";
-//     explainer.style.display = "block";
-//   } else {
-//     toggleButton.innerHTML = "Show More";
-//     explainer.style.display = "none";
-//   }
-// }
