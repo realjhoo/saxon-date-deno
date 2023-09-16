@@ -88,8 +88,9 @@ function getSaxonDate(metonicDate: object, now: string): void {
       eval(`metonicData.MetonicTable${goldenNumber}[i].moon`)
     );
 
+    // this line updated to correct error, not recompiled
     i++;
-    if (i >= length - 1) {
+    if (i > length - 1) {
       break;
     }
   }
