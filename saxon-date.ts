@@ -45,18 +45,20 @@ function getRunicYear(saxonMonth: string, gregorianDate: Date): number {
   let saxonYear = 0;
 
   if (saxonMonth === "Ereyule" && gregorianMonth === January) {
-    saxonYear = gregorianYear + 249;
-  } else if (saxonMonth === "Afteryule" && gregorianMonth === December) {
     saxonYear = gregorianYear + 251;
+  } else if (saxonMonth === "Afteryule" && gregorianMonth === December) {
+    saxonYear = gregorianYear + 253;
   } else {
-    saxonYear = gregorianYear + 250;
+    saxonYear = gregorianYear + 252;
   }
   return saxonYear;
 }
 
 // --------------------------------------------------------
 function getGoldenNumber(year: number): number {
-  return (year % 19) + 1;
+  // gregorian year mod 19 = actual golden year
+  // +5 to meet runic era golden number
+  return (year + 5) % 19;
 }
 
 // --------------------------------------------------------
